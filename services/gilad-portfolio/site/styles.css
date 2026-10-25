@@ -62,8 +62,10 @@ p { margin: 0 0 1em; text-wrap: pretty; }
 .accent { color: var(--accent); }
 .hero__lead { font-size: clamp(18px, 2.1vw, 20px); max-width: 600px; color: var(--muted); }
 .hero__lead strong { color: var(--ink); }
+.hero__link { color: var(--ink); font-weight: 700; text-decoration: underline; text-decoration-color: var(--accent); text-decoration-thickness: 2px; text-underline-offset: 3px; }
+.hero__link:hover { color: var(--accent); }
 .hero__cta { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; }
-.hero__photo { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 999px 999px 32px 32px; }
+.hero__photo { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; object-position: 30% 20%; border-radius: 999px 999px 32px 32px; }
 
 /* Stats */
 .stats { padding: 8px 0 24px; }
@@ -82,6 +84,11 @@ p { margin: 0 0 1em; text-wrap: pretty; }
 .venture a.btn--primary:hover { opacity: .9; }
 .venture__head { display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 20px; margin-bottom: 16px; }
 .venture__name { font-size: 40px; }
+.venture__name a { color: inherit; text-decoration: none; }
+.venture__name a:hover { text-decoration: underline; text-underline-offset: 4px; }
+.venture .hero__cta { margin-top: 0; }
+.btn--outline { color: var(--on-teal); border-color: color-mix(in srgb, var(--on-teal) 55%, transparent); }
+.btn--outline:hover { border-color: var(--on-teal); }
 .venture__role { margin: 0; font-weight: 700; opacity: .85; }
 .venture__text { font-size: 18px; max-width: 680px; }
 .venture--light { background: var(--card); color: var(--ink); border: 1px solid var(--line); }
@@ -117,7 +124,7 @@ p { margin: 0 0 1em; text-wrap: pretty; }
 .drums { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; align-items: center; }
 .drums__text p { font-size: 19px; color: #DCC8B6; max-width: 460px; }
 .drums__photo { border-radius: 24px; width: 100%; object-fit: cover; aspect-ratio: 658 / 625; }
-.playlist { aspect-ratio: 16 / 9; border-radius: 24px; overflow: hidden; background: #000; }
+.playlist { grid-column: 1 / -1; aspect-ratio: 16 / 9; border-radius: 24px; overflow: hidden; background: #000; }
 .playlist iframe { width: 100%; height: 100%; border: 0; display: block; }
 .btn--coral { background: #FF8466; color: #1C1410; }
 .btn--coral:hover { background: #FFA48C; }
