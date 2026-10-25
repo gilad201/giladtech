@@ -3,9 +3,9 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Gilad Wein — Data Engineer, Founder, Drummer</title>
-  <meta name="description" content="Gilad Wein — senior data engineer who builds self-running data platforms, co-founder of ArtSEE (defense tech), and drummer.">
-  <meta property="og:title" content="Gilad Wein — Data Engineer, Founder, Drummer">
+  <title>Gilad Wein — Builder, Teacher, Drummer</title>
+  <meta name="description" content="Gilad Wein — builds full platforms and self-running data systems, teaches engineers, co-founded ArtSEE (defense tech), and plays drums.">
+  <meta property="og:title" content="Gilad Wein — Builder, Teacher, Drummer">
   <meta property="og:description" content="I build data platforms that run themselves, and I'm building ArtSEE — defense tech born out of reserve duty in the artillery corps.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://giladtech.io/">
@@ -14,7 +14,7 @@
   <link rel="icon" type="image/png" href="/assets/favicon.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=Open+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="/styles.css">
 </head>
 <body>
@@ -22,14 +22,14 @@
 
   <header class="nav">
     <div class="wrap nav__inner">
-      <a class="nav__brand" href="#top" aria-label="Gilad Wein, home">GW</a>
+      <a class="nav__brand" href="#top" aria-label="Gilad Wein, home">gilad<span>.</span></a>
       <nav aria-label="Sections">
         <ul class="nav__links">
           <li><a href="#building">Building</a></li>
           <li><a href="#built">Built</a></li>
           <li><a href="#experience">Experience</a></li>
           <li><a href="#drums">Drums</a></li>
-          <li><a href="#contact">Contact</a></li>
+          <li><a class="nav__cta" href="#contact">Contact</a></li>
         </ul>
       </nav>
     </div>
@@ -38,24 +38,27 @@
   <main id="main">
     <!-- Hero -->
     <section class="hero" id="top">
-      <div class="wrap">
-        <p class="eyebrow">Gilad Wein</p>
-        <h1 class="hero__title">Data engineer.<br>Founder.<br><span class="accent">Drummer.</span></h1>
+      <div class="wrap hero__grid">
+        <div>
+        <p class="eyebrow">Hi, I'm Gilad Wein</p>
+        <h1 class="hero__title">I build things, help people grow, and <span class="accent">play drums</span>.</h1>
         <p class="hero__lead">I'm a self-learner, and I build what interests me — full platforms end to end, data systems that run themselves, <strong>OOAKY</strong>, a marketplace that has been live for years, and now <strong>ArtSEE</strong>, defense tech born out of my reserve duty in the artillery corps. I also teach: I help engineers get more efficient and feel good at what they do.</p>
         <div class="hero__cta">
-          <a class="btn btn--primary" href="mailto:heygilad@gmail.com">Get in touch</a>
+          <a class="btn btn--primary" href="mailto:heygilad@gmail.com">Let's talk</a>
           <a class="btn btn--ghost" href="/assets/Gilad_Wein_CV.pdf">Download CV</a>
         </div>
+        </div>
+        <img class="hero__photo" src="/assets/drums.jpg" alt="Gilad playing drums in a studio" width="658" height="625">
       </div>
     </section>
 
     <!-- Numbers -->
     <section class="stats" aria-label="Highlights">
       <div class="wrap stats__grid">
-        <div class="stat"><span class="stat__num">13+</span><span class="stat__label">years building software and data systems</span></div>
-        <div class="stat"><span class="stat__num">40M</span><span class="stat__label">monthly users on a data ecosystem I designed</span></div>
-        <div class="stat"><span class="stat__num">10s of TB</span><span class="stat__label">a month through a platform I built from scratch</span></div>
-        <div class="stat"><span class="stat__num">Dozens</span><span class="stat__label">of AI agents I run in production operations</span></div>
+        <p class="stat"><strong class="stat__num">13+ years</strong> building software and data systems</p>
+        <p class="stat"><strong class="stat__num">40M</strong> monthly users on a data ecosystem I designed</p>
+        <p class="stat"><strong class="stat__num">10s of TB</strong> a month through a platform I built</p>
+        <p class="stat"><strong class="stat__num">Dozens</strong> of AI agents in production</p>
       </div>
     </section>
 
@@ -177,9 +180,8 @@
         <div class="drums__text">
           <h2 class="section__title">Behind the kit</h2>
           <p>I'm a drummer and a certified music producer (LFO School). Timing, feel and nothing wasted — it's how I think about systems too.</p>
-          <a class="btn btn--mint" href="https://www.youtube.com/@giladsgroove275" rel="noopener" target="_blank">Gilad's Groove on YouTube</a>
+          <a class="btn btn--coral" href="https://www.youtube.com/@giladsgroove275" rel="noopener" target="_blank">Gilad's Groove on YouTube</a>
         </div>
-        <img class="drums__photo" src="/assets/drums.jpg" alt="Gilad playing drums in a studio" width="658" height="625" loading="lazy">
         <!-- Latest uploads from the channel; updates on its own -->
         <div class="playlist">
           <iframe src="https://www.youtube-nocookie.com/embed/videoseries?list=UUBvu-1tJCGH8YFYr3poksPQ" title="Gilad's Groove — latest drum videos" loading="lazy" allow="encrypted-media; picture-in-picture; fullscreen" allowfullscreen></iframe>

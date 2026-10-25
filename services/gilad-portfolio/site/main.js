@@ -20,7 +20,7 @@
     img.loading = 'lazy';
     var play = document.createElement('span');
     play.className = 'video__play';
-    play.innerHTML = '<svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="#0E5A2A"/></svg>';
+    play.innerHTML = '<svg width="26" height="26" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z" fill="#1C1410"/></svg>';
     btn.appendChild(img);
     btn.appendChild(play);
     btn.addEventListener('click', function () {
