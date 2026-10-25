@@ -171,11 +171,17 @@
 // Tiny drum kit made with Web Audio, so the playful bits can make noise.
 // Sounds only ever start from a tap or key press.
 var drum = (function () {
-  var ctx, noiseBuf;
+  var VOLUME = 0.3; // overall loudness, 0–1
+  var ctx, master, noiseBuf;
   function audio() {
     var AC = window.AudioContext || window.webkitAudioContext;
     if (!AC) return null;
-    if (!ctx) ctx = new AC();
+    if (!ctx) {
+      ctx = new AC();
+      master = ctx.createGain();
+      master.gain.value = VOLUME;
+      master.connect(ctx.destination);
+    }
     if (ctx.state === 'suspended') ctx.resume();
     return ctx;
   }
@@ -193,7 +199,7 @@ var drum = (function () {
     var g = c.createGain();
     g.gain.setValueAtTime(peak, t);
     g.gain.exponentialRampToValueAtTime(0.001, t + len);
-    g.connect(c.destination);
+    g.connect(master);
     return g;
   }
   function tone(c, t, type, from, to, len, peak) {
