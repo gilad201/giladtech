@@ -41,5 +41,7 @@ validates them, usually within a few minutes.
 ## Editing the portfolio
 
 - Text: `services/gilad-portfolio/site/index.html`
+- After changing `styles.css` or `main.js`, bump its `?v=` in `index.html`
+  (`shasum styles.css | cut -c1-8`), or Cloudflare's edge keeps serving the old file
 - Drum videos: add YouTube links to `window.DRUM_VIDEOS` near the bottom of `index.html`
 - CV: `services/gilad-portfolio/site/assets/Gilad_Wein_CV.pdf` (the "Download CV" button)
