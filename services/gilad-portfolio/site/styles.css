@@ -251,41 +251,7 @@ p { margin: 0 0 1em; text-wrap: pretty; }
 .game__win { margin: 20px 0 0; display: inline-block; background: var(--teal); color: var(--on-teal); font-weight: 700; padding: 12px 20px; border-radius: 999px; animation: step-in .4s ease-out; }
 .game__win a { color: inherit; }
 
-/* Case studies */
-.case { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 36px; align-items: center; background: var(--card); border: 1px solid var(--line); border-radius: 24px; padding: 32px; }
-.case .card__title span { font-family: var(--sans); font-weight: 500; letter-spacing: 0; color: var(--muted); font-size: 16px; }
-.case__steps { margin: 0; }
-.case__steps dt { font-size: 13px; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--accent-ink); }
-.case__steps dd { margin: 2px 0 14px; color: var(--muted); font-size: 16px; }
-.case__steps dd:last-child { margin-bottom: 0; }
-.diagram { width: 100%; height: auto; background: var(--bg); border-radius: 16px; padding: 12px; }
-.dg-box { fill: var(--card); stroke: var(--line); stroke-width: 1.5; }
-.dg-box--key { fill: var(--accent-soft); stroke: var(--accent-soft); }
-.dg-box--teal { fill: var(--teal); stroke: var(--teal); }
-.dg-t { font: 700 14px var(--sans); fill: var(--ink); text-anchor: middle; }
-.dg-s { font: 400 11.5px var(--sans); fill: var(--muted); text-anchor: middle; }
-.dg-on { fill: var(--on-teal); }
-.dg-line { stroke: var(--muted); stroke-width: 1.5; fill: none; }
-.dg-line--dash { stroke: var(--teal); stroke-dasharray: 5 4; }
 
-/* Case studies: interactive mode (main.js) */
-.case__stat { margin: 0 0 12px; font-size: 15px; color: var(--muted); }
-.case__stat strong { display: block; font-family: var(--display); font-size: 44px; font-weight: 800; line-height: 1; letter-spacing: -0.02em; color: var(--accent); }
-.is-interactive .case__steps dt { display: none; }
-.is-interactive .case__steps dd { margin: 0; min-height: 5.4em; font-size: 17px; color: var(--ink); animation: step-in .3s ease-out; }
-.steps { display: flex; gap: 4px; width: fit-content; max-width: 100%; margin: 18px 0 14px; padding: 4px; background: var(--tint); border-radius: 999px; }
-.step { font: inherit; font-size: 14px; font-weight: 700; display: inline-flex; align-items: center; gap: 6px; padding: 8px 14px; border: 0; border-radius: 999px; background: transparent; color: var(--muted); cursor: pointer; white-space: nowrap; }
-.step__n { display: grid; place-items: center; width: 20px; height: 20px; border-radius: 50%; background: var(--line); color: var(--ink); font-size: 12px; }
-.step[aria-pressed="true"] { background: var(--card); color: var(--ink); box-shadow: 0 1px 3px rgba(43, 29, 22, .15); }
-.step[aria-pressed="true"] .step__n { background: var(--accent); color: var(--on-accent); }
-.step-next { font: inherit; font-weight: 700; color: var(--teal); background: none; border: 0; padding: 8px 0 0; cursor: pointer; }
-.step-next:hover { color: var(--accent); }
-.dg-node { transition: opacity .3s; }
-.case[data-step="problem"] .dg-node:not([data-on~="problem"]),
-.case[data-step="result"] .dg-node:not([data-on~="result"]) { opacity: .2; }
-.case[data-step="built"] .dg-line { stroke-dasharray: 6 5; animation: flow .8s linear infinite; }
-@keyframes flow { to { stroke-dashoffset: -11; } }
-@keyframes step-in { from { opacity: 0; transform: translateY(4px); } }
 
 /* Now */
 .now { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 8px 40px; align-items: baseline; border: 2px solid var(--ink); border-radius: 24px; padding: 28px 32px; max-width: 760px; }
@@ -304,10 +270,15 @@ p { margin: 0 0 1em; text-wrap: pretty; }
 .job__case summary::after { content: "▸"; transition: transform .2s; }
 .job__case[open] summary::after { transform: rotate(90deg); }
 .job__case summary:hover { border-color: var(--teal); }
-.step:focus-visible, .step-next:focus-visible, .job__case summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
-.job__case .case { grid-template-columns: minmax(0, 1fr); margin-top: 14px; padding: 24px; gap: 20px; animation: step-in .3s ease-out; }
-.job__case .case .card__title { font-size: 20px; }
-.job__case .diagram { max-width: 560px; }
+.job__case summary:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+@keyframes step-in { from { opacity: 0; transform: translateY(4px); } }
+.job__case .case { margin-top: 12px; padding: 20px 22px; background: var(--card); border: 1px solid var(--line); border-radius: 20px; max-width: 620px; animation: step-in .3s ease-out; }
+.case__stat { margin: 0 0 14px; font-size: 15px; color: var(--muted); }
+.case__stat strong { font-family: var(--display); font-size: 34px; font-weight: 800; line-height: 1; letter-spacing: -0.02em; color: var(--accent); margin-right: 6px; }
+.case__flow { list-style: none; margin: 0; padding: 0; display: grid; gap: 12px; }
+.case__flow li { display: grid; grid-template-columns: 76px minmax(0, 1fr); gap: 12px; align-items: baseline; font-size: 16px; line-height: 1.45; color: var(--ink); }
+.case__tag { font-size: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: .05em; color: var(--muted); }
+.case__tag--win { color: var(--teal); }
 
 /* Contact */
 .contact__row { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; align-items: center; }
@@ -367,7 +338,6 @@ p { margin: 0 0 1em; text-wrap: pretty; }
   .is-game .tile { height: 270px; }
   .tile__front, .tile__back { padding: 18px; }
   .tile__back p, .tile__back a { font-size: 14px; }
-  .case { grid-template-columns: minmax(0, 1fr); padding: 24px; gap: 24px; }
   .now { grid-template-columns: minmax(0, 1fr); padding: 24px; }
   .now__title { grid-row: auto; }
   .drums { grid-template-columns: minmax(0, 1fr); gap: 28px; }
@@ -379,15 +349,13 @@ p { margin: 0 0 1em; text-wrap: pretty; }
 }
 @media (max-width: 520px) {
   .nav__links { display: none; }
-  .steps { width: 100%; }
-  .step { flex: 1 1 auto; justify-content: center; font-size: 13px; padding: 8px 6px; }
-  .step__n { display: none; }
+  .case__flow li { grid-template-columns: minmax(0, 1fr); gap: 2px; }
+  .case__stat strong { display: block; margin: 0 0 4px; }
   .stat { font-size: 15px; padding: 10px 16px; border-radius: 20px; }
   .venture__name { font-size: 32px; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
-  .case[data-step] .dg-line, .is-interactive .case__steps dd, .game__win { animation: none; }
   .is-game .tile, .is-game .tile__inner, .world { transition: none; }
   .is-fail .ops-box, .is-heal .ops-box, .ops__line { animation: none; }
   .drum-egg.is-hit, .job__case .case { animation: none; }

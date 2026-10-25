@@ -42,50 +42,6 @@
   }
 })();
 
-// Case studies (inside Experience): each case steps through
-// Problem → What I built → Result while its diagram highlights the matching parts.
-// Without JS, every step simply shows.
-(function () {
-  var STEPS = ['problem', 'built', 'result'];
-  [].forEach.call(document.querySelectorAll('.case'), function (panel) {
-    panel.classList.add('is-interactive');
-    setupSteps(panel);
-  });
-
-  function setupSteps(panel) {
-    var dl = panel.querySelector('.case__steps');
-    var labels = dl.querySelectorAll('dt');
-    var texts = dl.querySelectorAll('dd');
-    var nav = document.createElement('div');
-    nav.className = 'steps';
-    var current = 0;
-    var buttons = [].map.call(labels, function (dt, k) {
-      var b = document.createElement('button');
-      b.type = 'button';
-      b.className = 'step';
-      b.innerHTML = '<span class="step__n">' + (k + 1) + '</span>' + dt.textContent;
-      b.addEventListener('click', function () { go(k); });
-      nav.appendChild(b);
-      return b;
-    });
-    var next = document.createElement('button');
-    next.type = 'button';
-    next.className = 'step-next';
-    next.addEventListener('click', function () { go((current + 1) % STEPS.length); });
-    dl.parentNode.insertBefore(nav, dl);
-    dl.parentNode.appendChild(next);
-    go(0);
-
-    function go(k) {
-      current = k;
-      panel.setAttribute('data-step', STEPS[k]);
-      buttons.forEach(function (b, j) { b.setAttribute('aria-pressed', j === k); });
-      [].forEach.call(texts, function (dd, j) { dd.hidden = j !== k; });
-      next.textContent = k < STEPS.length - 1 ? 'Next →' : 'Start over ↺';
-    }
-  }
-})();
-
 // Projects: flip the cards to read the back; flipping all five wins.
 (function () {
   var game = document.querySelector('.game');
@@ -146,7 +102,7 @@
 // Tiny drum kit made with Web Audio, so the playful bits can make noise.
 // Sounds only ever start from a tap or key press.
 var drum = (function () {
-  var VOLUME = 0.3; // overall loudness, 0–1
+  var VOLUME = 0.3; // overall loudness, 0-1
   var ctx, master, noiseBuf;
   function audio() {
     var AC = window.AudioContext || window.webkitAudioContext;

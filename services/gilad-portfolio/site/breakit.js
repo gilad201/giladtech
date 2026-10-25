@@ -126,35 +126,35 @@
 
   // ---------- incidents ----------
   function incident(kind, agent) {
-    var say = function (t) { return function () { log(agent + ' › ' + t); }; };
+    var say = function (t) { return function () { log(agent + ' > ' + t); }; };
     var bad = 'v' + (GOOD_RELEASE + 1), good = 'v' + GOOD_RELEASE;
     var steps = {
       deploy: [
         [0, function () { setStage(2, 'fail', bad + ' ✗'); gate(2, 'closed'); log('⚠ Transform is failing after release ' + bad + '. Jobs are piling up.', 'alert'); }],
-        [0.9, say('Reading the logs…')],
-        [2.0, function () { setStage(2, 'heal'); log(agent + ' › Found it: release ' + bad + ' broke Transform.'); }],
-        [3.0, say('Rolling back to ' + good + '…')],
-        [4.2, function () { setStage(2, 'ok', good); gate(2, 'open'); log(agent + ' › Rolled back. Draining the backlog.'); }]
+        [0.9, say('Reading the logs...')],
+        [2.0, function () { setStage(2, 'heal'); log(agent + ' > Found it: release ' + bad + ' broke Transform.'); }],
+        [3.0, say('Rolling back to ' + good + '...')],
+        [4.2, function () { setStage(2, 'ok', good); gate(2, 'open'); log(agent + ' > Rolled back. Draining the backlog.'); }]
       ],
       spike: [
         [0, function () { S.spawnEvery = 0.05; gate(1, 'rate', 3); setStage(0, 'warn', '×10 traffic'); setStage(1, 'warn', 'overloaded'); log('⚠ Traffic ×10. Ingest can\'t keep up.', 'alert'); }],
         [1.0, say('That\'s a lot of data. Nice problem to have.')],
-        [2.1, function () { setStage(1, 'heal', 'scaling…'); log(agent + ' › Scaling Ingest from 1 to 3 workers…'); }],
-        [3.2, function () { setStage(1, 'ok', '3 workers'); gate(1, 'open'); log(agent + ' › Workers are up. Clearing the queue.'); }],
+        [2.1, function () { setStage(1, 'heal', 'scaling...'); log(agent + ' > Scaling Ingest from 1 to 3 workers...'); }],
+        [3.2, function () { setStage(1, 'ok', '3 workers'); gate(1, 'open'); log(agent + ' > Workers are up. Clearing the queue.'); }],
         [6.0, function () { S.spawnEvery = NORMAL_SPAWN; setStage(0, 'ok', 'normal'); }],
-        [7.0, function () { setStage(1, 'ok', '1 worker'); log(agent + ' › Traffic is back to normal. Scaling down to save money.'); }]
+        [7.0, function () { setStage(1, 'ok', '1 worker'); log(agent + ' > Traffic is back to normal. Scaling down to save money.'); }]
       ],
       data: [
         [0, function () { S.badRate = 0.6; setStage(0, 'warn', 'bad records'); log('⚠ Broken records are coming in.', 'alert'); }],
-        [1.3, function () { setStage(4, 'warn', 'numbers off'); log(agent + ' › Dashboard numbers look off. Tracing it back…'); }],
-        [2.5, function () { S.validate = true; setStage(2, 'heal', 'validating'); log(agent + ' › The source is sending empty prices. Quarantining bad records.'); }],
+        [1.3, function () { setStage(4, 'warn', 'numbers off'); log(agent + ' > Dashboard numbers look off. Tracing it back...'); }],
+        [2.5, function () { S.validate = true; setStage(2, 'heal', 'validating'); log(agent + ' > The source is sending empty prices. Quarantining bad records.'); }],
         [3.8, function () { S.badRate = 0; setStage(0, 'ok', 'normal'); setStage(2, 'ok', good); }],
-        [4.8, function () { setStage(4, 'ok', 'correct'); log(agent + ' › Backfilled the affected hour. Dashboard is correct again.'); }]
+        [4.8, function () { setStage(4, 'ok', 'correct'); log(agent + ' > Backfilled the affected hour. Dashboard is correct again.'); }]
       ],
       cost: [
         [0, function () { S.costTarget = 380; setStage(3, 'fail'); log('⚠ Warehouse cost is climbing fast.', 'alert'); }],
         [1.1, say('One query is scanning the whole warehouse, every minute.')],
-        [2.3, function () { setStage(3, 'heal'); log(agent + ' › Killed it. Adding a guardrail so it can\'t run again.'); }],
+        [2.3, function () { setStage(3, 'heal'); log(agent + ' > Killed it. Adding a guardrail so it can\'t run again.'); }],
         [3.5, function () { S.costTarget = 4.2; }]
       ]
     }[kind];
