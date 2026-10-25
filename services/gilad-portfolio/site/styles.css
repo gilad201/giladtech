@@ -14,24 +14,7 @@
   --line: #EAD9C8;
   --display: 'Bricolage Grotesque', system-ui, sans-serif;
   --sans: 'DM Sans', system-ui, sans-serif;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --accent: #FF8466;
-    --accent-deep: #FFA48C;
-    --accent-soft: #4A2A20;
-    --accent-ink: #FFC2AE;
-    --on-accent: #1C1410;
-    --teal: #5EC8BC;
-    --on-teal: #1C1410;
-    --ink: #F6EBDD;
-    --muted: #C9B5A4;
-    --bg: #1C1410;
-    --tint: #241A15;
-    --card: #2A1F19;
-    --line: #3D2E25;
-  }
+  color-scheme: light;
 }
 
 * { box-sizing: border-box; }
