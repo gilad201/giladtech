@@ -1,0 +1,21 @@
+Replace <YOUR_DOCKER_USERNAME> with your Docker Hub username:
+
+
+docker build -t giladtech/python-api .
+docker push giladtech/python-api:latest
+
+
+
+docker run -it --privileged -d --name docker-builder-3 \
+  -v /var/run/docker.sock:/var/run/docker.sock \
+  -v $(pwd):/app \
+  docker:latest /bin/sh
+
+docker exec -it docker-builder-3 sh
+
+FROM inside:
+1. apk update && apk add docker-cli
+2. cd app/services/python-api
+3. docker build -t giladtech/python-api .
+4. docker login
+5. docker push giladtech/python-api:latest

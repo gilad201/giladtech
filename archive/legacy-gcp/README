@@ -1,0 +1,14 @@
+terraform init
+
+terraform validate
+
+terraform apply
+
+-- kubectl apply -f nginx-ingress-controller.yaml
+kubectl apply -f ingress.yaml
+
+terraform apply
+
+kubectl apply -f deployment-python-api.yaml
+
+ping giladtech.io

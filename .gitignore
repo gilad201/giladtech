@@ -1,0 +1,20 @@
+terraform.tfstate
+terraform.tfstate.backup
+*.tfstate
+*.tfstate.*
+.terraform/
+*.tfvars
+*.tfvars.json
+*.DS_Store
+services/db/
+# Local tooling / build output
+.wrangler/
+node_modules/
+venv/
+.venv/
+__pycache__/
+*.pyc
+.env
+.env.*
+*.key
+services/my-chat-app/
