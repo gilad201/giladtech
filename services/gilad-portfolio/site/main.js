@@ -42,40 +42,15 @@
   }
 })();
 
-// Case studies: tabs switch between cases, and each case steps through
+// Case studies (inside Experience): each case steps through
 // Problem → What I built → Result while its diagram highlights the matching parts.
-// Without JS, every case and step simply shows.
+// Without JS, every step simply shows.
 (function () {
-  var root = document.querySelector('.cases');
-  if (!root) return;
   var STEPS = ['problem', 'built', 'result'];
-  var tabs = [].slice.call(root.querySelectorAll('[role="tab"]'));
-  var panels = tabs.map(function (t) { return document.getElementById(t.getAttribute('aria-controls')); });
-
-  root.classList.add('is-interactive');
-  root.querySelector('.case-tabs').hidden = false;
-  panels.forEach(setupSteps);
-
-  tabs.forEach(function (tab, i) {
-    tab.addEventListener('click', function () { select(i); });
-    tab.addEventListener('keydown', function (e) {
-      var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
-      if (!d) return;
-      e.preventDefault();
-      select((i + d + tabs.length) % tabs.length, true);
-    });
+  [].forEach.call(document.querySelectorAll('.case'), function (panel) {
+    panel.classList.add('is-interactive');
+    setupSteps(panel);
   });
-  select(0);
-
-  function select(i, focus) {
-    tabs.forEach(function (tab, j) {
-      var on = j === i;
-      tab.setAttribute('aria-selected', on);
-      tab.tabIndex = on ? 0 : -1;
-      panels[j].hidden = !on;
-    });
-    if (focus) tabs[i].focus();
-  }
 
   function setupSteps(panel) {
     var dl = panel.querySelector('.case__steps');
@@ -221,7 +196,9 @@ var drum = (function () {
     snare: function (c, t) { hiss(c, t, 1200, 0.18, 0.5); tone(c, t, 'triangle', 220, 160, 0.08, 0.3); },
     tom: function (c, t) { tone(c, t, 'sine', 220, 90, 0.3, 0.7); },
     hat: function (c, t) { hiss(c, t, 7000, 0.06, 0.3); },
-    crash: function (c, t) { hiss(c, t, 4000, 1.2, 0.25); }
+    crash: function (c, t) { hiss(c, t, 4000, 1.2, 0.25); },
+    blip: function (c, t) { tone(c, t, 'square', 880, 880, 0.08, 0.12); },
+    chime: function (c, t) { tone(c, t, 'sine', 660, 660, 0.35, 0.35); tone(c, t + 0.12, 'sine', 990, 990, 0.5, 0.3); }
   };
   return function (name, delay) {
     var c = audio();
@@ -249,92 +226,22 @@ var drum = (function () {
   });
 })();
 
-// About: light all three worlds to reveal where they meet.
+// About: tap a world to light it and read its line. All three lit, they slide together.
 (function () {
   var box = document.querySelector('.worlds');
   if (!box) return;
   var worlds = [].slice.call(box.querySelectorAll('.world'));
   var line = box.querySelector('.worlds__line');
-  var punch = document.querySelector('.about__punch');
-  var sounds = ['kick', 'snare', 'tom'];
   box.classList.add('is-live');
-  punch.classList.add('is-locked');
-  line.textContent = 'Three worlds. Light them all.';
-  worlds.forEach(function (w, i) {
+  line.textContent = 'Tap a world.';
+  worlds.forEach(function (w) {
     w.addEventListener('click', function () {
       w.setAttribute('aria-pressed', 'true');
       line.textContent = w.getAttribute('data-line');
-      drum(sounds[i]);
       var lit = worlds.filter(function (x) { return x.getAttribute('aria-pressed') === 'true'; }).length;
-      if (lit === worlds.length && !box.classList.contains('is-complete')) {
-        box.classList.add('is-complete');
-        punch.classList.remove('is-locked');
-        drum('crash', 0.15);
-      }
+      if (lit === worlds.length) box.classList.add('is-complete');
     });
   });
-})();
-
-// How I work: a four-pad drum machine.
-(function () {
-  var pads = [].slice.call(document.querySelectorAll('.pad'));
-  if (!pads.length) return;
-  var screen = document.querySelector('.machine__text');
-  document.querySelector('.machine').classList.add('is-live');
-  function hit(pad) {
-    drum(pad.getAttribute('data-sound'));
-    screen.textContent = pad.querySelector('.pad__line').textContent;
-    pad.classList.remove('is-hit');
-    void pad.offsetWidth;
-    pad.classList.add('is-hit');
-    clearTimeout(pad.upTimer);
-    pad.upTimer = setTimeout(function () { pad.classList.remove('is-hit'); }, 180);
-  }
-  pads.forEach(function (pad) { pad.addEventListener('click', function () { hit(pad); }); });
-  document.addEventListener('keydown', function (e) {
-    if (e.metaKey || e.ctrlKey || e.altKey) return;
-    if (/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;
-    var n = parseInt(e.key, 10);
-    if (n >= 1 && n <= pads.length) {
-      var r = document.querySelector('.machine').getBoundingClientRect();
-      if (r.bottom > 0 && r.top < window.innerHeight) hit(pads[n - 1]);
-    }
-  });
-})();
-
-// Background: roll the dice for a random fact.
-(function () {
-  var box = document.querySelector('.dice-box');
-  if (!box) return;
-  var facts = [].slice.call(box.querySelectorAll('.fact'));
-  var current = -1;
-  var bar = document.createElement('div');
-  bar.className = 'dice-bar';
-  bar.innerHTML = '<button class="btn btn--primary dice-roll" type="button"><span class="dice" aria-hidden="true">🎲</span> Roll the dice</button><span class="dice-count" aria-live="polite"></span>';
-  box.insertBefore(bar, box.firstChild);
-  box.classList.add('is-live');
-  var dice = bar.querySelector('.dice');
-  var count = bar.querySelector('.dice-count');
-  var seen = {};
-  bar.querySelector('.dice-roll').addEventListener('click', roll);
-  show(0);
-
-  function roll() {
-    var next;
-    do { next = Math.floor(Math.random() * facts.length); } while (next === current);
-    dice.classList.remove('is-rolling');
-    void dice.offsetWidth;
-    dice.classList.add('is-rolling');
-    drum('hat'); drum('hat', 0.08); drum('snare', 0.2);
-    setTimeout(function () { show(next); }, 250);
-  }
-  function show(i) {
-    current = i;
-    seen[i] = true;
-    facts.forEach(function (f, j) { f.hidden = j !== i; });
-    var n = Object.keys(seen).length;
-    count.textContent = n === facts.length ? 'All ' + n + ' found!' : n + ' of ' + facts.length + ' found';
-  }
 })();
 
 // Now: play one bar of 6/8 with accents on 1 and 4.
