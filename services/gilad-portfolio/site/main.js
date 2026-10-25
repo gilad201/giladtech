@@ -41,3 +41,306 @@
     return m ? m[1] : null;
   }
 })();
+
+// Case studies: tabs switch between cases, and each case steps through
+// Problem → What I built → Result while its diagram highlights the matching parts.
+// Without JS, every case and step simply shows.
+(function () {
+  var root = document.querySelector('.cases');
+  if (!root) return;
+  var STEPS = ['problem', 'built', 'result'];
+  var tabs = [].slice.call(root.querySelectorAll('[role="tab"]'));
+  var panels = tabs.map(function (t) { return document.getElementById(t.getAttribute('aria-controls')); });
+
+  root.classList.add('is-interactive');
+  root.querySelector('.case-tabs').hidden = false;
+  panels.forEach(setupSteps);
+
+  tabs.forEach(function (tab, i) {
+    tab.addEventListener('click', function () { select(i); });
+    tab.addEventListener('keydown', function (e) {
+      var d = e.key === 'ArrowRight' ? 1 : e.key === 'ArrowLeft' ? -1 : 0;
+      if (!d) return;
+      e.preventDefault();
+      select((i + d + tabs.length) % tabs.length, true);
+    });
+  });
+  select(0);
+
+  function select(i, focus) {
+    tabs.forEach(function (tab, j) {
+      var on = j === i;
+      tab.setAttribute('aria-selected', on);
+      tab.tabIndex = on ? 0 : -1;
+      panels[j].hidden = !on;
+    });
+    if (focus) tabs[i].focus();
+  }
+
+  function setupSteps(panel) {
+    var dl = panel.querySelector('.case__steps');
+    var labels = dl.querySelectorAll('dt');
+    var texts = dl.querySelectorAll('dd');
+    var nav = document.createElement('div');
+    nav.className = 'steps';
+    var current = 0;
+    var buttons = [].map.call(labels, function (dt, k) {
+      var b = document.createElement('button');
+      b.type = 'button';
+      b.className = 'step';
+      b.innerHTML = '<span class="step__n">' + (k + 1) + '</span>' + dt.textContent;
+      b.addEventListener('click', function () { go(k); });
+      nav.appendChild(b);
+      return b;
+    });
+    var next = document.createElement('button');
+    next.type = 'button';
+    next.className = 'step-next';
+    next.addEventListener('click', function () { go((current + 1) % STEPS.length); });
+    dl.parentNode.insertBefore(nav, dl);
+    dl.parentNode.appendChild(next);
+    go(0);
+
+    function go(k) {
+      current = k;
+      panel.setAttribute('data-step', STEPS[k]);
+      buttons.forEach(function (b, j) { b.setAttribute('aria-pressed', j === k); });
+      [].forEach.call(texts, function (dd, j) { dd.hidden = j !== k; });
+      next.textContent = k < STEPS.length - 1 ? 'Next →' : 'Start over ↺';
+    }
+  }
+})();
+
+// Projects: flip the cards to read the back; flipping all five wins.
+(function () {
+  var game = document.querySelector('.game');
+  if (!game) return;
+  var tiles = [].slice.call(game.querySelectorAll('.tile'));
+  var dots = game.querySelectorAll('.game__dots i');
+  var text = game.querySelector('.game__text');
+  var win = game.querySelector('.game__win');
+  var seen = [];
+
+  game.classList.add('is-game');
+  game.querySelector('.game__score').hidden = false;
+
+  tiles.forEach(function (tile, i) {
+    var front = tile.querySelector('.tile__front');
+    var back = tile.querySelector('.tile__back');
+    var title = tile.querySelector('.tile__title').textContent;
+    front.setAttribute('role', 'button');
+    front.tabIndex = 0;
+    front.setAttribute('aria-label', title + ': flip card');
+    var undo = document.createElement('button');
+    undo.type = 'button';
+    undo.className = 'tile__undo';
+    undo.setAttribute('aria-label', 'Flip ' + title + ' back');
+    undo.textContent = '↺';
+    back.appendChild(undo);
+    back.inert = true;
+
+    front.addEventListener('click', function () { flip(i, true); });
+    front.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); flip(i, true); undo.focus(); }
+    });
+    back.addEventListener('click', function (e) {
+      if (e.target.closest('a')) return;
+      flip(i, false);
+      if (e.target === undo) front.focus();
+    });
+  });
+
+  game.querySelector('.game__all').addEventListener('click', function () {
+    tiles.forEach(function (_, i) { setTimeout(function () { flip(i, true); }, i * 120); });
+  });
+
+  function flip(i, open) {
+    var tile = tiles[i];
+    tile.classList.toggle('is-flipped', open);
+    tile.querySelector('.tile__front').inert = open;
+    tile.querySelector('.tile__back').inert = !open;
+    if (open && seen.indexOf(i) < 0) {
+      seen.push(i);
+      dots[seen.length - 1].className = 'on';
+      text.textContent = seen.length + ' of ' + tiles.length + ' flipped';
+      if (seen.length === tiles.length) win.hidden = false;
+    }
+  }
+})();
+
+// Tiny drum kit made with Web Audio, so the playful bits can make noise.
+// Sounds only ever start from a tap or key press.
+var drum = (function () {
+  var ctx, noiseBuf;
+  function audio() {
+    var AC = window.AudioContext || window.webkitAudioContext;
+    if (!AC) return null;
+    if (!ctx) ctx = new AC();
+    if (ctx.state === 'suspended') ctx.resume();
+    return ctx;
+  }
+  function noise(c) {
+    if (!noiseBuf) {
+      noiseBuf = c.createBuffer(1, c.sampleRate, c.sampleRate);
+      var d = noiseBuf.getChannelData(0);
+      for (var i = 0; i < d.length; i++) d[i] = Math.random() * 2 - 1;
+    }
+    var src = c.createBufferSource();
+    src.buffer = noiseBuf;
+    return src;
+  }
+  function env(c, t, peak, len) {
+    var g = c.createGain();
+    g.gain.setValueAtTime(peak, t);
+    g.gain.exponentialRampToValueAtTime(0.001, t + len);
+    g.connect(c.destination);
+    return g;
+  }
+  function tone(c, t, type, from, to, len, peak) {
+    var o = c.createOscillator();
+    o.type = type;
+    o.frequency.setValueAtTime(from, t);
+    o.frequency.exponentialRampToValueAtTime(to, t + len);
+    o.connect(env(c, t, peak, len));
+    o.start(t); o.stop(t + len);
+  }
+  function hiss(c, t, cutoff, len, peak) {
+    var n = noise(c), f = c.createBiquadFilter();
+    f.type = 'highpass'; f.frequency.value = cutoff;
+    n.connect(f); f.connect(env(c, t, peak, len));
+    n.start(t); n.stop(t + len);
+  }
+  var kit = {
+    kick: function (c, t) { tone(c, t, 'sine', 150, 40, 0.35, 0.9); },
+    snare: function (c, t) { hiss(c, t, 1200, 0.18, 0.5); tone(c, t, 'triangle', 220, 160, 0.08, 0.3); },
+    tom: function (c, t) { tone(c, t, 'sine', 220, 90, 0.3, 0.7); },
+    hat: function (c, t) { hiss(c, t, 7000, 0.06, 0.3); },
+    crash: function (c, t) { hiss(c, t, 4000, 1.2, 0.25); }
+  };
+  return function (name, delay) {
+    var c = audio();
+    if (c && kit[name]) kit[name](c, c.currentTime + (delay || 0));
+  };
+})();
+
+// Hero: "play drums" plays a little fill.
+(function () {
+  var egg = document.querySelector('.drum-egg');
+  if (!egg) return;
+  egg.setAttribute('role', 'button');
+  egg.tabIndex = 0;
+  egg.title = 'Go on, tap it';
+  function fill() {
+    ['snare', 'snare', 'tom', 'tom', 'kick'].forEach(function (s, i) { drum(s, i * 0.11); });
+    drum('crash', 0.55);
+    egg.classList.remove('is-hit');
+    void egg.offsetWidth;
+    egg.classList.add('is-hit');
+  }
+  egg.addEventListener('click', fill);
+  egg.addEventListener('keydown', function (e) {
+    if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); fill(); }
+  });
+})();
+
+// About: light all three worlds to reveal where they meet.
+(function () {
+  var box = document.querySelector('.worlds');
+  if (!box) return;
+  var worlds = [].slice.call(box.querySelectorAll('.world'));
+  var line = box.querySelector('.worlds__line');
+  var punch = document.querySelector('.about__punch');
+  var sounds = ['kick', 'snare', 'tom'];
+  box.classList.add('is-live');
+  punch.classList.add('is-locked');
+  line.textContent = 'Three worlds. Light them all.';
+  worlds.forEach(function (w, i) {
+    w.addEventListener('click', function () {
+      w.setAttribute('aria-pressed', 'true');
+      line.textContent = w.getAttribute('data-line');
+      drum(sounds[i]);
+      var lit = worlds.filter(function (x) { return x.getAttribute('aria-pressed') === 'true'; }).length;
+      if (lit === worlds.length && !box.classList.contains('is-complete')) {
+        box.classList.add('is-complete');
+        punch.classList.remove('is-locked');
+        drum('crash', 0.15);
+      }
+    });
+  });
+})();
+
+// How I work: a four-pad drum machine.
+(function () {
+  var pads = [].slice.call(document.querySelectorAll('.pad'));
+  if (!pads.length) return;
+  var screen = document.querySelector('.machine__text');
+  document.querySelector('.machine').classList.add('is-live');
+  function hit(pad) {
+    drum(pad.getAttribute('data-sound'));
+    screen.textContent = pad.querySelector('.pad__line').textContent;
+    pad.classList.remove('is-hit');
+    void pad.offsetWidth;
+    pad.classList.add('is-hit');
+    clearTimeout(pad.upTimer);
+    pad.upTimer = setTimeout(function () { pad.classList.remove('is-hit'); }, 180);
+  }
+  pads.forEach(function (pad) { pad.addEventListener('click', function () { hit(pad); }); });
+  document.addEventListener('keydown', function (e) {
+    if (e.metaKey || e.ctrlKey || e.altKey) return;
+    if (/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)) return;
+    var n = parseInt(e.key, 10);
+    if (n >= 1 && n <= pads.length) {
+      var r = document.querySelector('.machine').getBoundingClientRect();
+      if (r.bottom > 0 && r.top < window.innerHeight) hit(pads[n - 1]);
+    }
+  });
+})();
+
+// Background: roll the dice for a random fact.
+(function () {
+  var box = document.querySelector('.dice-box');
+  if (!box) return;
+  var facts = [].slice.call(box.querySelectorAll('.fact'));
+  var current = -1;
+  var bar = document.createElement('div');
+  bar.className = 'dice-bar';
+  bar.innerHTML = '<button class="btn btn--primary dice-roll" type="button"><span class="dice" aria-hidden="true">🎲</span> Roll the dice</button><span class="dice-count" aria-live="polite"></span>';
+  box.insertBefore(bar, box.firstChild);
+  box.classList.add('is-live');
+  var dice = bar.querySelector('.dice');
+  var count = bar.querySelector('.dice-count');
+  var seen = {};
+  bar.querySelector('.dice-roll').addEventListener('click', roll);
+  show(0);
+
+  function roll() {
+    var next;
+    do { next = Math.floor(Math.random() * facts.length); } while (next === current);
+    dice.classList.remove('is-rolling');
+    void dice.offsetWidth;
+    dice.classList.add('is-rolling');
+    drum('hat'); drum('hat', 0.08); drum('snare', 0.2);
+    setTimeout(function () { show(next); }, 250);
+  }
+  function show(i) {
+    current = i;
+    seen[i] = true;
+    facts.forEach(function (f, j) { f.hidden = j !== i; });
+    var n = Object.keys(seen).length;
+    count.textContent = n === facts.length ? 'All ' + n + ' found!' : n + ' of ' + facts.length + ' found';
+  }
+})();
+
+// Now: play one bar of 6/8 with accents on 1 and 4.
+(function () {
+  var btn = document.querySelector('.now__play');
+  if (!btn) return;
+  btn.hidden = false;
+  btn.addEventListener('click', function () {
+    var step = 0.2;
+    for (var i = 0; i < 6; i++) {
+      drum(i % 3 === 0 ? 'snare' : 'hat', i * step);
+      if (i === 0 || i === 3) drum('kick', i * step);
+    }
+  });
+})();

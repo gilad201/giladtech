@@ -15,10 +15,11 @@
   <link rel="icon" type="image/png" sizes="48x48" href="/assets/favicon.png?v=1c65101a">
   <link rel="apple-touch-icon" href="/assets/apple-touch-icon.png?v=1c65101a">
   <meta name="theme-color" content="#FFF6EC">
+  <script>document.documentElement.classList.add('js')</script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,800&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="/styles.css?v=5341d6ed">
+  <link rel="stylesheet" href="/styles.css?v=26cf33e0">
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -28,8 +29,9 @@
       <a class="nav__brand" href="#top" aria-label="Gilad Wein, home">gilad<span>.</span></a>
       <nav aria-label="Sections">
         <ul class="nav__links">
+          <li><a href="#about">About</a></li>
           <li><a href="#building">Building</a></li>
-          <li><a href="#built">Built</a></li>
+          <li><a href="#projects">Projects</a></li>
           <li><a href="#experience">Experience</a></li>
           <li><a href="#drums">Drums</a></li>
           <li><a class="nav__cta" href="#contact">Contact</a></li>
@@ -44,8 +46,8 @@
       <div class="wrap hero__grid">
         <div>
         <p class="eyebrow">Hi, I'm Gilad Wein</p>
-        <h1 class="hero__title">I build things, help people grow, and <span class="accent">play drums</span>.</h1>
-        <p class="hero__lead">I'm a self-learner, and I build what interests me — full platforms end to end, data systems that run themselves, <a class="hero__link" href="https://www.ooaky.com/" rel="noopener" target="_blank">OOAKY</a>, a marketplace that has been live for years, and now <a class="hero__link" href="https://artsee.dev/" rel="noopener" target="_blank">ArtSEE</a>, defense tech born out of my reserve duty in the artillery corps. I also teach: I help engineers get more efficient and feel good at what they do.</p>
+        <h1 class="hero__title">I build things, help people grow, and <span class="accent drum-egg">play drums</span>.</h1>
+        <p class="hero__lead">Full platforms, self-running data systems, <a class="hero__link" href="https://www.ooaky.com/" rel="noopener" target="_blank">OOAKY</a> — and now <a class="hero__link" href="https://artsee.dev/" rel="noopener" target="_blank">ArtSEE</a>, defense tech born in my reserve duty. I also teach engineers to work smarter and feel good at what they do.</p>
         <div class="hero__cta">
           <a class="btn btn--primary" href="mailto:heygilad@gmail.com">Let's talk</a>
           <a class="btn btn--ghost" href="/assets/Gilad_Wein_CV.pdf?v=f2bde034">Download CV</a>
@@ -62,6 +64,28 @@
         <p class="stat"><strong class="stat__num">40M</strong> monthly users on a data ecosystem I designed</p>
         <p class="stat"><strong class="stat__num">10s of TB</strong> a month through a platform I built</p>
         <p class="stat"><strong class="stat__num">Dozens</strong> of AI agents in production</p>
+      </div>
+    </section>
+
+    <!-- About: three worlds; light all three to see where they meet (main.js). Without JS, all text shows. -->
+    <section class="section" id="about">
+      <div class="wrap about">
+        <h2 class="section__title">Why I build</h2>
+        <p>I'm a self-learner, and I build things out of interest. Three worlds shape how I work<span class="js-only"> — tap each one</span>.</p>
+        <div class="worlds">
+          <div class="venn">
+            <button class="world world--field" type="button" aria-pressed="false" data-line="In the artillery corps I'm a fire-control NCO. I've seen where ops still run on paper and memory."><span aria-hidden="true">🎯</span>The field</button>
+            <button class="world world--data" type="button" aria-pressed="false" data-line="At work I'm a data engineer who builds platforms that run themselves."><span aria-hidden="true">📊</span>The data</button>
+            <button class="world world--kit" type="button" aria-pressed="false" data-line="Behind the kit I'm a drummer who thinks in timing and precision."><span aria-hidden="true">🥁</span>The kit</button>
+          </div>
+          <p class="worlds__line" aria-live="polite"></p>
+          <ul class="worlds__all">
+            <li>In the artillery corps I'm a fire-control NCO. I've seen where ops still run on paper and memory.</li>
+            <li>At work I'm a data engineer who builds platforms that run themselves.</li>
+            <li>Behind the kit I'm a drummer who thinks in timing and precision.</li>
+          </ul>
+        </div>
+        <p class="about__punch">Where they meet: find the real problem, build the thing that solves it, and make it hold up. That's how OOAKY happened, and why ArtSEE exists.</p>
       </div>
     </section>
 
@@ -108,26 +132,111 @@
       </div>
     </section>
 
-    <!-- How I work -->
-    <section class="section section--tint">
+    <!-- Projects: a flip-the-cards game (main.js). Without JS, both sides of every card show. -->
+    <section class="section" id="projects">
+      <div class="wrap">
+        <h2 class="section__title">Projects</h2>
+        <p class="section__lead">Things I built because I wanted them to exist. Flip a card to see what's behind it.</p>
+
+        <div class="game">
+          <p class="game__score" aria-live="polite" hidden>
+            <span class="game__dots" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i></span>
+            <span class="game__text">0 of 5 flipped</span>
+            <button class="step-next game__all" type="button">Flip them all</button>
+          </p>
+
+          <ul class="tiles">
+            <li class="tile tile--coral">
+              <div class="tile__inner">
+                <div class="tile__front">
+                  <span class="tile__icon" aria-hidden="true">🥗</span>
+                  <h3 class="tile__title">Nutrition app</h3>
+                  <p class="tile__hook">Plan a balanced plate</p>
+                  <span class="tile__hint" aria-hidden="true">Flip ↻</span>
+                </div>
+                <div class="tile__back">
+                  <span class="badge badge--live">Live</span>
+                  <p>150 Israeli foods, Hebrew search, works offline. Your data stays on your device.</p>
+                  <a href="https://food.giladtech.io" rel="noopener" target="_blank">food.giladtech.io ↗</a>
+                </div>
+              </div>
+            </li>
+            <li class="tile tile--teal">
+              <div class="tile__inner">
+                <div class="tile__front">
+                  <span class="tile__icon" aria-hidden="true">📸</span>
+                  <h3 class="tile__title">Snap-and-log</h3>
+                  <p class="tile__hook">Photo in, macros out</p>
+                  <span class="tile__hint" aria-hidden="true">Flip ↻</span>
+                </div>
+                <div class="tile__back">
+                  <span class="badge badge--wip">In progress</span>
+                  <p>Snap or say your meal. AI spots the foods and grams; a real nutrition database does the math.</p>
+                </div>
+              </div>
+            </li>
+            <li class="tile tile--sun">
+              <div class="tile__inner">
+                <div class="tile__front">
+                  <span class="tile__icon" aria-hidden="true">🧮</span>
+                  <h3 class="tile__title">AI math tutor</h3>
+                  <p class="tile__hook">72 topics, one tutor</p>
+                  <span class="tile__hint" aria-hidden="true">Flip ↻</span>
+                </div>
+                <div class="tile__back">
+                  <span class="badge">Self-learning</span>
+                  <p>A three-layer applied-math curriculum, and an AI tutor that recaps, adapts to my time and tracks progress.</p>
+                </div>
+              </div>
+            </li>
+            <li class="tile tile--ink">
+              <div class="tile__inner">
+                <div class="tile__front">
+                  <span class="tile__icon" aria-hidden="true">💸</span>
+                  <h3 class="tile__title">This site, $0/month</h3>
+                  <p class="tile__hook">From Kubernetes to free</p>
+                  <span class="tile__hint" aria-hidden="true">Flip ↻</span>
+                </div>
+                <div class="tile__back">
+                  <span class="badge">Infra as code</span>
+                  <p>Moved from Kubernetes to Cloudflare Pages with Terraform. Faster, and free.</p>
+                  <a href="https://github.com/gilad201/giladtech" rel="noopener" target="_blank">Source on GitHub ↗</a>
+                </div>
+              </div>
+            </li>
+            <li class="tile tile--sand">
+              <div class="tile__inner">
+                <div class="tile__front">
+                  <span class="tile__icon" aria-hidden="true">🤖</span>
+                  <h3 class="tile__title">My own LLM stack</h3>
+                  <p class="tile__hook">Early 2025, on Kubernetes</p>
+                  <span class="tile__hint" aria-hidden="true">Flip ↻</span>
+                </div>
+                <div class="tile__back">
+                  <span class="badge">LLMs</span>
+                  <p>An LLM API and chat app on GKE with Terraform and Cloudflare TLS — to learn it in production early.</p>
+                </div>
+              </div>
+            </li>
+          </ul>
+
+          <p class="game__win" hidden>All five flipped. Nice! Want to build something together? <a href="mailto:heygilad@gmail.com">Let's talk →</a></p>
+        </div>
+      </div>
+    </section>
+
+    <!-- How I work: a drum machine. Hit a pad to hear it and read the idea (main.js). -->
+    <section class="section section--tint" id="how">
       <div class="wrap">
         <h2 class="section__title">How I work</h2>
-        <div class="cards cards--2">
-          <div class="card">
-            <h3 class="card__title">Systems that run themselves</h3>
-            <p>Pipelines that recover on their own, alert before anyone notices, and stay cheap as data grows. Manual work gets automated, not documented.</p>
-          </div>
-          <div class="card">
-            <h3 class="card__title">AI-first, with judgment</h3>
-            <p>I build with Claude Code, Codex and Cursor every day, and run agents that investigate and fix production issues. The skill is knowing when the AI is wrong.</p>
-          </div>
-          <div class="card">
-            <h3 class="card__title">Full platforms, end to end</h3>
-            <p>Architecture, infrastructure, DevOps, backend and frontend — I build the whole platform, whatever the product needs.</p>
-          </div>
-          <div class="card">
-            <h3 class="card__title">Making engineers better</h3>
-            <p>I teach tech and mentor engineers to work more efficiently, judge AI output, and build things the right way — until they trust their own judgment and feel good at what they do.</p>
+        <p class="section__lead"><span class="js-only">Four ideas, four pads. Hit one.</span></p>
+        <div class="machine">
+          <p class="machine__screen" aria-live="polite"><span class="machine__label">GW-4</span><span class="machine__text">Tap a pad to start ▸</span></p>
+          <div class="pads">
+            <button class="pad pad--1" type="button" data-sound="kick"><kbd>1</kbd><strong>Self-running systems</strong><span class="pad__line">Pipelines that heal, alert early and stay cheap. Automate it, don't document it.</span></button>
+            <button class="pad pad--2" type="button" data-sound="snare"><kbd>2</kbd><strong>AI, with judgment</strong><span class="pad__line">Claude Code, Codex and Cursor every day. The skill is knowing when the AI is wrong.</span></button>
+            <button class="pad pad--3" type="button" data-sound="tom"><kbd>3</kbd><strong>Full platforms</strong><span class="pad__line">Infra, data, backend and frontend — the whole thing, end to end.</span></button>
+            <button class="pad pad--4" type="button" data-sound="hat"><kbd>4</kbd><strong>Better engineers</strong><span class="pad__line">I teach engineers to work faster, judge AI output and trust themselves.</span></button>
           </div>
         </div>
         <blockquote class="credo">
@@ -145,38 +254,139 @@
             <div class="job__meta"><span class="job__dates">2025 – now</span></div>
             <div class="job__body">
               <h3 class="job__title">Alison AI <span>· Senior Data Engineer</span></h3>
-              <p>Built the company's data platform from scratch: self-managed on Kubernetes with Argo Workflows and ArgoCD, tens of TBs a month into BigQuery. Run dozens of AI agents on logs and alerts, and kept the app stable with dozens of PRs merged daily.</p>
+              <p>Built the data platform from scratch — Kubernetes, Argo, BigQuery — and run dozens of AI agents in production.</p>
             </div>
           </li>
           <li class="job">
             <div class="job__meta"><span class="job__dates">2023 – 2025</span></div>
             <div class="job__body">
               <h3 class="job__title">Triple Whale <span>· Senior Data Engineer</span></h3>
-              <p>Planned and built the new data system on GCP with BigQuery and ClickHouse, orchestrated with Temporal: revertible, self-recovering, built for huge volumes at controlled cost. Automated 100% of manual operations.</p>
+              <p>New self-recovering data system on BigQuery, ClickHouse and Temporal. Automated 100% of manual ops.</p>
             </div>
           </li>
           <li class="job">
             <div class="job__meta"><span class="job__dates">2021 – 2023</span></div>
             <div class="job__body">
               <h3 class="job__title">Roundforest <span>· Senior Data Engineer</span></h3>
-              <p>Designed and built a new data ecosystem for 40M monthly users — serverless on GCP with BigQuery, dbt and Looker — with data quality, anomaly detection and cost guardrails built in.</p>
+              <p>Serverless data ecosystem on GCP for 40M monthly users.</p>
             </div>
           </li>
           <li class="job">
             <div class="job__meta"><span class="job__dates">2017 – 2020</span></div>
             <div class="job__body">
               <h3 class="job__title">Tailormed <span>· Senior Backend Engineer</span></h3>
-              <p>Microservices on AWS in a HIPAA-compliant environment; ETL and integrations with hospital systems.</p>
+              <p>HIPAA-compliant microservices on AWS and hospital integrations.</p>
             </div>
           </li>
           <li class="job">
             <div class="job__meta"><span class="job__dates">2013 – 2017</span></div>
             <div class="job__body">
               <h3 class="job__title">Earlier</h3>
-              <p>Founder &amp; CTO of MusikWay, a music startup where I built 90% of the product; first developer at Shupperz; full-stack developer at Mount Carmel Health System.</p>
+              <p>Founder &amp; CTO of MusikWay, first developer at Shupperz, full-stack at Mount Carmel Health System.</p>
             </div>
           </li>
         </ol>
+      </div>
+    </section>
+
+    <!-- Case studies: tabs pick a case, steps walk through it (main.js). Without JS everything shows. -->
+    <section class="section section--tint" id="case-studies">
+      <div class="wrap">
+        <h2 class="section__title">Case studies</h2>
+        <p class="section__lead">Three systems. Pick one and step through it.</p>
+
+        <div class="cases">
+          <div class="case-tabs" role="tablist" aria-label="Case studies" hidden>
+            <button class="case-tab" type="button" role="tab" id="tab-alison" aria-controls="case-alison" aria-selected="true">Alison AI<span>AI agents in ops</span></button>
+            <button class="case-tab" type="button" role="tab" id="tab-tw" aria-controls="case-tw" aria-selected="false" tabindex="-1">Triple Whale<span>Self-healing pipelines</span></button>
+            <button class="case-tab" type="button" role="tab" id="tab-rf" aria-controls="case-rf" aria-selected="false" tabindex="-1">Roundforest<span>Data for 40M users</span></button>
+          </div>
+
+          <article class="case" id="case-alison" role="tabpanel" aria-labelledby="tab-alison">
+            <div class="case__text">
+              <p class="case__stat"><strong>10s of TB</strong> a month, watched by AI agents</p>
+              <h3 class="card__title">Running production ops with AI agents <span>· Alison AI</span></h3>
+              <dl class="case__steps">
+                <dt>Problem</dt>
+                <dd>A fast-growing data platform with dozens of PRs merged a day, and too many alerts for people to chase.</dd>
+                <dt>What I built</dt>
+                <dd>A self-managed platform on Kubernetes with Argo Workflows and ArgoCD, plus dozens of AI agents that watch logs and alerts, investigate incidents and fix what they can on their own.</dd>
+                <dt>Result</dt>
+                <dd>Tens of TBs a month into BigQuery, a stable app despite the merge pace, and engineers focused on building instead of firefighting.</dd>
+              </dl>
+            </div>
+            <svg class="diagram" viewBox="0 0 520 210" role="img" aria-label="Merged PRs deploy through ArgoCD to Kubernetes running Argo Workflows, which loads data into BigQuery. AI agents watch logs and alerts and fix issues.">
+              <defs>
+                <marker id="a1" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#6B5446"/></marker>
+                <marker id="a1t" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0F766E"/></marker>
+              </defs>
+              <g class="dg-node" data-on="problem"><rect class="dg-box" x="6" y="20" width="130" height="56" rx="12"/><text class="dg-t" x="71" y="44">PRs merged</text><text class="dg-s" x="71" y="62">dozens a day</text></g>
+              <g class="dg-node"><rect class="dg-box" x="186" y="20" width="110" height="56" rx="12"/><text class="dg-t" x="241" y="53">ArgoCD</text></g>
+              <g class="dg-node" data-on="problem result"><rect class="dg-box dg-box--key" x="346" y="20" width="166" height="56" rx="12"/><text class="dg-t" x="429" y="44">Kubernetes</text><text class="dg-s" x="429" y="62">Argo Workflows</text></g>
+              <g class="dg-node" data-on="result"><rect class="dg-box" x="346" y="136" width="166" height="56" rx="12"/><text class="dg-t" x="429" y="160">BigQuery</text><text class="dg-s" x="429" y="178">10s of TB a month</text></g>
+              <g class="dg-node" data-on="result"><rect class="dg-box dg-box--teal" x="96" y="136" width="200" height="56" rx="12"/><text class="dg-t dg-on" x="196" y="160">AI agents</text><text class="dg-s dg-on" x="196" y="178">watch · investigate · fix</text></g>
+              <g class="dg-node" data-on="problem"><line class="dg-line" x1="136" y1="48" x2="184" y2="48" marker-end="url(#a1)"/><line class="dg-line" x1="296" y1="48" x2="344" y2="48" marker-end="url(#a1)"/></g>
+              <g class="dg-node" data-on="result"><line class="dg-line" x1="429" y1="76" x2="429" y2="134" marker-end="url(#a1)"/><line class="dg-line dg-line--dash" x1="300" y1="140" x2="364" y2="80" marker-start="url(#a1t)" marker-end="url(#a1t)"/></g>
+            </svg>
+          </article>
+
+          <article class="case" id="case-tw" role="tabpanel" aria-labelledby="tab-tw">
+            <div class="case__text">
+              <p class="case__stat"><strong>100%</strong> of manual ops automated</p>
+              <h3 class="card__title">Pipelines that fix themselves <span>· Triple Whale</span></h3>
+              <dl class="case__steps">
+                <dt>Problem</dt>
+                <dd>Huge data volumes, rising cost, and too much manual operations work.</dd>
+                <dt>What I built</dt>
+                <dd>A new data system on GCP with BigQuery and ClickHouse, orchestrated with Temporal so every pipeline is stateful, revertible and self-recovering, with monitoring and alerting built in.</dd>
+                <dt>Result</dt>
+                <dd>100% of manual operational work automated, cost kept under control as volume grew.</dd>
+              </dl>
+            </div>
+            <svg class="diagram" viewBox="0 0 520 210" role="img" aria-label="Data sources flow through Temporal, which keeps pipelines stateful and self-recovering, into BigQuery and ClickHouse. Monitoring and alerting watch Temporal.">
+              <defs>
+                <marker id="a2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#6B5446"/></marker>
+                <marker id="a2t" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0F766E"/></marker>
+              </defs>
+              <g class="dg-node" data-on="problem"><rect class="dg-box" x="6" y="44" width="130" height="56" rx="12"/><text class="dg-t" x="71" y="68">Data sources</text><text class="dg-s" x="71" y="86">huge volumes</text></g>
+              <g class="dg-node" data-on="result"><rect class="dg-box dg-box--teal" x="186" y="44" width="150" height="56" rx="12"/><text class="dg-t dg-on" x="261" y="68">Temporal</text><text class="dg-s dg-on" x="261" y="86">stateful · revertible</text></g>
+              <g class="dg-node" data-on="problem"><rect class="dg-box" x="386" y="10" width="126" height="48" rx="12"/><text class="dg-t" x="449" y="39">BigQuery</text><rect class="dg-box" x="386" y="86" width="126" height="48" rx="12"/><text class="dg-t" x="449" y="115">ClickHouse</text></g>
+              <g class="dg-node" data-on="result"><rect class="dg-box dg-box--key" x="176" y="150" width="170" height="52" rx="12"/><text class="dg-t" x="261" y="172">Monitoring</text><text class="dg-s" x="261" y="189">and alerting</text></g>
+              <g class="dg-node" data-on="problem"><line class="dg-line" x1="136" y1="72" x2="184" y2="72" marker-end="url(#a2)"/><line class="dg-line" x1="336" y1="64" x2="384" y2="38" marker-end="url(#a2)"/><line class="dg-line" x1="336" y1="80" x2="384" y2="106" marker-end="url(#a2)"/></g>
+              <g class="dg-node" data-on="result"><line class="dg-line dg-line--dash" x1="261" y1="104" x2="261" y2="146" marker-start="url(#a2t)" marker-end="url(#a2t)"/><path class="dg-line dg-line--dash" d="M206 44 C206 20 316 20 316 40" marker-end="url(#a2t)"/><text class="dg-s" x="261" y="12">self-recovering</text></g>
+            </svg>
+          </article>
+
+          <article class="case" id="case-rf" role="tabpanel" aria-labelledby="tab-rf">
+            <div class="case__text">
+              <p class="case__stat"><strong>40M</strong> monthly users' worth of data</p>
+              <h3 class="card__title">A data ecosystem for 40M users <span>· Roundforest</span></h3>
+              <dl class="case__steps">
+                <dt>Problem</dt>
+                <dd>A new data team, and a company that wanted to make decisions from data.</dd>
+                <dt>What I built</dt>
+                <dd>A serverless ecosystem on GCP — BigQuery, dbt, Pub/Sub, Dataflow — with semantic layers, data validation, anomaly detection and cost guardrails, Looker on top, and a Slack bot for on-demand jobs.</dd>
+                <dt>Result</dt>
+                <dd>Fast self-serve analytics for 40M monthly users' worth of data, and an organization that moved toward data-driven decisions.</dd>
+              </dl>
+            </div>
+            <svg class="diagram" viewBox="0 0 520 210" role="img" aria-label="Events flow through Pub/Sub and Dataflow into BigQuery with dbt semantic layers, guarded by validation, anomaly detection and cost checks, with Looker for analytics and a Slack bot for on-demand jobs.">
+              <defs>
+                <marker id="a3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#6B5446"/></marker>
+                <marker id="a3t" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" fill="#0F766E"/></marker>
+              </defs>
+              <g class="dg-node" data-on="problem"><rect class="dg-box" x="6" y="20" width="96" height="56" rx="12"/><text class="dg-t" x="54" y="53">Events</text></g>
+              <g class="dg-node"><rect class="dg-box" x="134" y="20" width="104" height="56" rx="12"/><text class="dg-t" x="186" y="53">Pub/Sub</text><rect class="dg-box" x="270" y="20" width="104" height="56" rx="12"/><text class="dg-t" x="322" y="53">Dataflow</text></g>
+              <g class="dg-node" data-on="problem"><rect class="dg-box dg-box--teal" x="406" y="20" width="108" height="56" rx="12"/><text class="dg-t dg-on" x="460" y="44">BigQuery</text><text class="dg-s dg-on" x="460" y="62">+ dbt layers</text></g>
+              <g class="dg-node" data-on="result"><rect class="dg-box" x="406" y="136" width="108" height="56" rx="12"/><text class="dg-t" x="460" y="160">Looker</text><text class="dg-s" x="460" y="178">self-serve</text></g>
+              <g class="dg-node"><rect class="dg-box dg-box--key" x="176" y="136" width="198" height="56" rx="12"/><text class="dg-t" x="275" y="160">Validation · anomalies</text><text class="dg-s" x="275" y="178">cost guardrails</text></g>
+              <g class="dg-node" data-on="result"><rect class="dg-box" x="6" y="136" width="128" height="56" rx="12"/><text class="dg-t" x="70" y="160">Slack bot</text><text class="dg-s" x="70" y="178">on-demand jobs</text></g>
+              <g class="dg-node" data-on="problem"><line class="dg-line" x1="102" y1="48" x2="132" y2="48" marker-end="url(#a3)"/><line class="dg-line" x1="238" y1="48" x2="268" y2="48" marker-end="url(#a3)"/><line class="dg-line" x1="374" y1="48" x2="404" y2="48" marker-end="url(#a3)"/></g>
+              <g class="dg-node" data-on="result"><line class="dg-line" x1="460" y1="76" x2="460" y2="134" marker-end="url(#a3)"/><line class="dg-line dg-line--dash" x1="70" y1="136" x2="290" y2="80" marker-end="url(#a3t)"/></g>
+              <g class="dg-node"><line class="dg-line dg-line--dash" x1="374" y1="146" x2="420" y2="80" marker-end="url(#a3t)"/></g>
+            </svg>
+          </article>
+        </div>
       </div>
     </section>
 
@@ -197,26 +407,84 @@
       </div>
     </section>
 
-    <!-- Background -->
-    <section class="section">
+    <!-- Background: roll the dice for a random fact (main.js). Without JS, all cards show. -->
+    <section class="section" id="background">
       <div class="wrap">
         <h2 class="section__title">Background</h2>
-        <div class="cards">
-          <div class="card">
-            <h3 class="card__title">Artillery corps</h3>
-            <p>Fire-control NCO with extensive reserve duty. It's where ArtSEE started.</p>
-          </div>
-          <div class="card">
-            <h3 class="card__title">Mathematics</h3>
-            <p>B.Sc. in Mathematics in progress at the Open University, alongside structured self-study in applied math.</p>
-          </div>
-          <div class="card">
-            <h3 class="card__title">Music production</h3>
-            <p>Certified producer from LFO School for Music Production.</p>
+        <p class="section__lead"><span class="js-only">Five facts about me. Roll the dice.</span></p>
+        <div class="dice-box">
+          <div class="cards facts">
+            <div class="card fact"><span class="fact__icon" aria-hidden="true">🎖️</span><h3 class="card__title">Artillery corps</h3><p>Fire-control NCO in reserve duty. Where ArtSEE started.</p></div>
+            <div class="card fact"><span class="fact__icon" aria-hidden="true">∑</span><h3 class="card__title">Mathematics</h3><p>B.Sc. in Mathematics in progress at the Open University.</p></div>
+            <div class="card fact"><span class="fact__icon" aria-hidden="true">🎛️</span><h3 class="card__title">Music production</h3><p>Certified producer, LFO School for Music Production.</p></div>
+            <div class="card fact"><span class="fact__icon" aria-hidden="true">🌿</span><h3 class="card__title">Niche perfumery</h3><p>Oud, musks and attars — a collection built on curiosity.</p></div>
+            <div class="card fact"><span class="fact__icon" aria-hidden="true">🚀</span><h3 class="card__title">First startup: MusikWay</h3><p>Founder &amp; CTO. Built 90% of the product and led the teams.</p></div>
           </div>
         </div>
       </div>
     </section>
+
+    <!-- Writing -->
+    <section class="section section--tint" id="writing">
+      <div class="wrap">
+        <h2 class="section__title">Writing</h2>
+        <p class="section__lead">Short notes on how I build.</p>
+        <div class="cards">
+          <article class="card">
+            <p class="project__meta"><span class="badge">Coming soon</span></p>
+            <h3 class="card__title">Judging AI-written code</h3>
+            <p>What I teach engineers about when to trust the model, and when not to.</p>
+          </article>
+          <article class="card">
+            <p class="project__meta"><span class="badge">Coming soon</span></p>
+            <h3 class="card__title">Teaching juniors in the age of agents</h3>
+            <p>Becoming a self-learner when the AI can write the first draft.</p>
+          </article>
+          <article class="card">
+            <p class="project__meta"><span class="badge">Coming soon</span></p>
+            <h3 class="card__title">The self-healing data platform</h3>
+            <p>Designing pipelines that recover before anyone notices.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <!-- Now -->
+    <section class="section section--now" id="now">
+      <div class="wrap">
+        <div class="now">
+          <h2 class="now__title">Now</h2>
+          <ul class="now__list">
+            <li>Building ArtSEE.</li>
+            <li>Senior data engineer at Alison AI.</li>
+            <li>Practicing 6/8 exercises with accents. <button class="now__play" type="button" hidden>▶ Hear a bar</button></li>
+          </ul>
+          <p class="now__date">Updated October 2026</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- What people say: hidden until there are real quotes. To show it, uncomment and fill in.
+    <section class="section" id="testimonials">
+      <div class="wrap">
+        <h2 class="section__title">What people say</h2>
+        <div class="cards">
+          <figure class="card quote">
+            <blockquote><p>"[QUOTE]"</p></blockquote>
+            <figcaption>[NAME], [ROLE], [COMPANY]</figcaption>
+          </figure>
+          <figure class="card quote">
+            <blockquote><p>"[QUOTE]"</p></blockquote>
+            <figcaption>[NAME], [ROLE], [COMPANY]</figcaption>
+          </figure>
+          <figure class="card quote">
+            <blockquote><p>"[QUOTE]"</p></blockquote>
+            <figcaption>[NAME], [ROLE], [COMPANY]</figcaption>
+          </figure>
+        </div>
+      </div>
+    </section>
+    -->
 
     <!-- Contact -->
     <section class="section section--tint" id="contact">
@@ -243,6 +511,6 @@
       // "https://www.youtube.com/watch?v=XXXXXXXXXXX",
     ];
   </script>
-  <script src="/main.js?v=8a9a4960" defer></script>
+  <script src="/main.js?v=735108b7" defer></script>
 </body>
 </html>
