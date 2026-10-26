@@ -1,0 +1,20 @@
+# Gilad Wein (גלעד ויין) - GiladTech
+
+> Gilad Wein is a senior data engineer, the co-founder of ArtSEE (defense tech for artillery operations), the builder of the OOAKY marketplace, a teacher and mentor for engineers, and a drummer. GiladTech (giladtech.io) is his personal site and portfolio.
+
+- Website: https://giladtech.io/
+- LinkedIn: https://www.linkedin.com/in/gilad-wein-53b197a7
+- GitHub: https://github.com/gilad201
+- ArtSEE: https://artsee.dev/
+- OOAKY: https://www.ooaky.com/
+- Drums (YouTube, Gilad's Groove): https://www.youtube.com/@giladsgroove275
+- CV: https://giladtech.io/assets/Gilad_Wein_CV.pdf
+- Contact: heygilad@gmail.com
+
+## About
+
+- Co-founder of ArtSEE, a defense-tech SaaS platform for artillery operations, born from his reserve service as a fire-control NCO in the artillery corps. Patent pending.
+- Built OOAKY, a social marketplace for one-of-a-kind handmade and vintage goods, end to end. It has been live for years.
+- 13+ years building software. Senior Data Engineer at Alison AI (2025 - now), Triple Whale (2023 - 2025) and Roundforest (2021 - 2023); Senior Backend Engineer at Tailormed (2017 - 2020); founder and CTO of MusikWay.
+- Builds self-running data platforms: Kubernetes, Argo, BigQuery, ClickHouse, Temporal, dbt, Terraform, with AI agents that handle production incidents.
+- Teaches and mentors engineers. B.Sc. in Mathematics in progress at the Open University. Certified music producer (LFO School).
